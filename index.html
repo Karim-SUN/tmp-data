@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>The 3D Taxonomy</title>
+    <title>The Interpretability Paper Space</title>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script src="scripts/plotly-1.58.3.min.js"></script>
     <style>
@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <h1>3D Taxonomy</h1>
+    <h1>Interpretability Paper Space</h1>
     <p id="p-checkbox" style="visibility: hidden;">
         <input type="checkbox" id="hide-panes" onchange="onChange()"><label for="hide-panes">Hide colored panes (for better hover information)</label>
         <br><sub>This page may not work as expected in Safari. If this is the case, consider using other browsers e.g. Chrome or Edge.</sub>
@@ -45,7 +45,7 @@
         }
 
         function hover_txt(rows, k1, k2, p_or_a) {
-            return rows.filter(r => Number(r['property_1']) == p_or_a).map(function (row) { return '[' + row[k1] + '] ' + row[k2]; });
+            return rows.filter(r => Number(r['Passive_vs_active']) == p_or_a).map(function (row) { return '[' + row[k1] + '] ' + row[k2]; });
         }
 
         function pertube(data) {
@@ -53,7 +53,7 @@
         }
 
         const local = false;
-        const host = local ? 'http://localhost:5500/' : 'https://raw.githubusercontent.com/Karim-SUN/tmp-data/main/';
+        const host = local ? 'http://localhost:5500/' : 'https://raw.githubusercontent.com/yzhang-gh/tmp-data/master/';
 
         Plotly.d3.csv(host + 'data.csv', function (err, rows) {
 
@@ -65,7 +65,7 @@
             //// calc N
             let counts = {};
             rows.forEach(row => {
-                const key = row['property_1'] + row['property_2'] + row['property_3'];
+                const key = row['Explanation'] + row['Global_vs_local'] + row['Passive_vs_active'];
                 if (counts[key] !== undefined) {
                     counts[key] += 1;
                 } else {
@@ -81,7 +81,7 @@
             let counts3 = {}; //// for scaling
             const phi = (Math.sqrt(5) - 1) / 2;
             rows.forEach(row => {
-                const key = row['property_1'] + row['property_2'] + row['property_3'];
+                const key = row['Explanation'] + row['Global_vs_local'] + row['Passive_vs_active'];
                 const N = counts[key];
 
                 if (N > 1) {
@@ -122,15 +122,12 @@
             let xs_active = [];
             let ys_active = [];
             let zs_active = [];
-            let xs_3 = [];
-            let ys_3 = [];
-            let zs_3 = [];
             rows.forEach((row, i) => {
-                const key = row['property_1'] + row['property_2'] + row['property_3'];
+                const key = row['Explanation'] + row['Global_vs_local'] + row['Passive_vs_active'];
 
-                let x = Number(row['property_1']);
-                let y = Number(row['property_2']);
-                let z = Number(row['property_3']);
+                let x = Number(row['Explanation']);
+                let y = Number(row['Global_vs_local']);
+                let z = Number(row['Passive_vs_active']);
 
                 console.log('z', z);
                 if (z == 1) {
@@ -141,10 +138,6 @@
                     xs_active.push(x + x_shifts[i] / counts3[key] * 0.08);
                     ys_active.push(y + y_shifts[i] / counts3[key] * 0.08);
                     zs_active.push(z + z_shifts[i] / counts3[key] * 0.08);
-                } else if (z == 3) {
-                    xs_3.push(x + x_shifts[i] / counts3[key] * 0.08);
-                    ys_3.push(y + y_shifts[i] / counts3[key] * 0.08);
-                    zs_3.push(z + z_shifts[i] / counts3[key] * 0.08);
                 }
             });
 
@@ -153,7 +146,7 @@
                 x: xs,
                 y: ys,
                 z: zs,
-                text: hover_txt(rows, 'Paper_id', 'paper_title', 1),
+                text: hover_txt(rows, 'Paper_id', 'Paper_title', 1),
                 hoverinfo: 'text',
                 showlegend: false,
                 mode: 'markers',
@@ -169,32 +162,12 @@
                 x: xs_active,
                 y: ys_active,
                 z: zs_active,
-                text: hover_txt(rows, 'Paper_id', 'paper_title', 2),
+                text: hover_txt(rows, 'Paper_id', 'Paper_title', 2),
                 hoverinfo: 'text',
                 showlegend: false,
                 mode: 'markers',
                 marker: {
                     color: 'rgba(255, 50, 14, 1)',
-                    size: 3,
-                    // line: {
-                    //     color: 'rgb(255, 50, 14)',
-                    //     width: 2
-                    // }
-                },
-                type: 'scatter3d'
-            };
-            
-            var trace3 = {
-                // name: '3',
-                x: xs_3,
-                y: ys_3,
-                z: zs_3,
-                text: hover_txt(rows, 'Paper_id', 'paper_title', 3),
-                hoverinfo: 'text',
-                showlegend: false,
-                mode: 'markers',
-                marker: {
-                    color: 'rgba(83, 201, 61, 1)',
                     size: 3,
                     // line: {
                     //     color: 'rgb(255, 50, 14)',
@@ -270,20 +243,8 @@
                 showscale: false,
                 type: 'surface'
             }
-            
-            var surf3 = {
-                x: [0, 5],
-                y: [0, 4],
-                z: [[3, 3], [3, 3]],
-                opacity: 0.1,
-                hoverinfo: 'none',
-                showlegend: false,
-                colorscale: [[0, 'rgba(83, 201, 61, 1)'], [1, 'rgba(83, 201, 61, 1)']],
-                showscale: false,
-                type: 'surface'
-            }
 
-            var data = [trace1, trace2, trace3, origin, lines, surf1, surf2, surf3];
+            var data = [trace1, trace2, origin, lines, surf1, surf2];
             window.csvData = [...data];
             var layout = {
                 width: 1280,
@@ -346,7 +307,7 @@
                     zaxis: {
                         tickvals: [1, 2],
                         ticktext: ['Passive', 'Active'],
-                        range: [0, 3.5],
+                        range: [0, 2.5],
                         zerolinewidth: 3,
                         gridcolor: 'rgb(100, 100, 100)',
                         showspikes: false,
