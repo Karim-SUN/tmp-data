@@ -53,7 +53,7 @@
         }
 
         const local = false;
-        const host = local ? 'http://localhost:5500/' : 'https://raw.githubusercontent.com/yzhang-gh/tmp-data/master/';
+        const host = local ? 'http://localhost:5500/' : 'https://raw.githubusercontent.com/Karim-SUN/tmp-data/main/';
 
         Plotly.d3.csv(host + 'data.csv', function (err, rows) {
 
@@ -122,6 +122,9 @@
             let xs_active = [];
             let ys_active = [];
             let zs_active = [];
+            let xs_3 = [];
+            let ys_3 = [];
+            let zs_3 = [];
             rows.forEach((row, i) => {
                 const key = row['Explanation'] + row['Global_vs_local'] + row['Passive_vs_active'];
 
@@ -138,6 +141,10 @@
                     xs_active.push(x + x_shifts[i] / counts3[key] * 0.08);
                     ys_active.push(y + y_shifts[i] / counts3[key] * 0.08);
                     zs_active.push(z + z_shifts[i] / counts3[key] * 0.08);
+                } else if (z == 3) {
+                    xs_3.push(x + x_shifts[i] / counts3[key] * 0.08);
+                    ys_3.push(y + y_shifts[i] / counts3[key] * 0.08);
+                    zs_3.push(z + z_shifts[i] / counts3[key] * 0.08);
                 }
             });
 
@@ -173,6 +180,22 @@
                     //     color: 'rgb(255, 50, 14)',
                     //     width: 2
                     // }
+                },
+                type: 'scatter3d'
+            };
+            
+            var trace3 = {
+                // name: 'Passive',
+                x: xs_3,
+                y: ys_3,
+                z: zs_3,
+                text: hover_txt(rows, 'Paper_id', 'Paper_title', 3),
+                hoverinfo: 'text',
+                showlegend: false,
+                mode: 'markers',
+                marker: {
+                    color: 'rgba(83, 201, 61, 1)',
+                    size: 3,
                 },
                 type: 'scatter3d'
             };
@@ -243,8 +266,20 @@
                 showscale: false,
                 type: 'surface'
             }
+            
+            var surf3 = {
+                x: [0, 5],
+                y: [0, 4],
+                z: [[3, 3], [3, 3]],
+                opacity: 0.1,
+                hoverinfo: 'none',
+                showlegend: false,
+                colorscale: [[0, 'rgba(83, 201, 61, 1)'], [1, 'rgba(83, 201, 61, 1)']],
+                showscale: false,
+                type: 'surface'
+            }
 
-            var data = [trace1, trace2, origin, lines, surf1, surf2];
+            var data = [trace1, trace2, trace3, origin, lines, surf1, surf2, surf3];
             window.csvData = [...data];
             var layout = {
                 width: 1280,
@@ -305,9 +340,9 @@
                         },
                     },
                     zaxis: {
-                        tickvals: [1, 2],
+                        tickvals: [1, 2, 3],
                         ticktext: ['Passive', 'Active'],
-                        range: [0, 2.5],
+                        range: [0, 3.5],
                         zerolinewidth: 3,
                         gridcolor: 'rgb(100, 100, 100)',
                         showspikes: false,
