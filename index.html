@@ -45,7 +45,7 @@
         }
 
         function hover_txt(rows, k1, k2, p_or_a) {
-            return rows.filter(r => Number(r['Passive_vs_active']) == p_or_a).map(function (row) { return '[' + row[k1] + '] ' + row[k2]; });
+            return rows.filter(r => Number(r['property_1']) == p_or_a).map(function (row) { return '[' + row[k1] + '] ' + row[k2]; });
         }
 
         function pertube(data) {
@@ -55,7 +55,7 @@
         const local = false;
         const host = local ? 'http://localhost:5500/' : 'https://raw.githubusercontent.com/Karim-SUN/tmp-data/main/';
 
-        Plotly.d3.csv(host + 'data.csv', function (err, rows) {
+        Plotly.d3.csv(host + 'data_2.csv', function (err, rows) {
 
             if (err) {
                 document.getElementById('loading').innerHTML = 'Error connecting to GitHub';
@@ -65,7 +65,7 @@
             //// calc N
             let counts = {};
             rows.forEach(row => {
-                const key = row['Explanation'] + row['Global_vs_local'] + row['Passive_vs_active'];
+                const key = row['property_1'] + row['property_2'] + row['property_3'];
                 if (counts[key] !== undefined) {
                     counts[key] += 1;
                 } else {
@@ -81,7 +81,7 @@
             let counts3 = {}; //// for scaling
             const phi = (Math.sqrt(5) - 1) / 2;
             rows.forEach(row => {
-                const key = row['Explanation'] + row['Global_vs_local'] + row['Passive_vs_active'];
+                const key = row['property_1'] + row['property_2'] + row['property_3'];
                 const N = counts[key];
 
                 if (N > 1) {
@@ -123,11 +123,11 @@
             let ys_active = [];
             let zs_active = [];
             rows.forEach((row, i) => {
-                const key = row['Explanation'] + row['Global_vs_local'] + row['Passive_vs_active'];
+                const key = row['property_1'] + row['property_2'] + row['property_3'];
 
-                let x = Number(row['Explanation']);
-                let y = Number(row['Global_vs_local']);
-                let z = Number(row['Passive_vs_active']);
+                let x = Number(row['property_1']);
+                let y = Number(row['property_2']);
+                let z = Number(row['property_3']);
 
                 console.log('z', z);
                 if (z == 1) {
@@ -146,7 +146,7 @@
                 x: xs,
                 y: ys,
                 z: zs,
-                text: hover_txt(rows, 'Paper_id', 'Paper_title', 1),
+                text: hover_txt(rows, 'paper_id', 'paper_title', 1),
                 hoverinfo: 'text',
                 showlegend: false,
                 mode: 'markers',
