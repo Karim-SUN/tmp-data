@@ -122,6 +122,9 @@
             let xs_active = [];
             let ys_active = [];
             let zs_active = [];
+            let xs_3 = [];
+            let ys_3 = [];
+            let zs_3 = [];
             rows.forEach((row, i) => {
                 const key = row['property_1'] + row['property_2'] + row['property_3'];
 
@@ -138,6 +141,10 @@
                     xs_active.push(x + x_shifts[i] / counts3[key] * 0.08);
                     ys_active.push(y + y_shifts[i] / counts3[key] * 0.08);
                     zs_active.push(z + z_shifts[i] / counts3[key] * 0.08);
+                } else if (z == 3) {
+                    xs_3.push(x + x_shifts[i] / counts3[key] * 0.08);
+                    ys_3.push(y + y_shifts[i] / counts3[key] * 0.08);
+                    zs_3.push(z + z_shifts[i] / counts3[key] * 0.08);
                 }
             });
 
@@ -168,6 +175,26 @@
                 mode: 'markers',
                 marker: {
                     color: 'rgba(255, 50, 14, 1)',
+                    size: 3,
+                    // line: {
+                    //     color: 'rgb(255, 50, 14)',
+                    //     width: 2
+                    // }
+                },
+                type: 'scatter3d'
+            };
+            
+            var trace3 = {
+                // name: '3',
+                x: xs_3,
+                y: ys_3,
+                z: zs_3,
+                text: hover_txt(rows, 'Paper_id', 'paper_title', 3),
+                hoverinfo: 'text',
+                showlegend: false,
+                mode: 'markers',
+                marker: {
+                    color: 'rgba(83, 201, 61, 1)',
                     size: 3,
                     // line: {
                     //     color: 'rgb(255, 50, 14)',
@@ -243,8 +270,20 @@
                 showscale: false,
                 type: 'surface'
             }
+            
+            var surf3 = {
+                x: [0, 5],
+                y: [0, 4],
+                z: [[3, 3], [3, 3]],
+                opacity: 0.1,
+                hoverinfo: 'none',
+                showlegend: false,
+                colorscale: [[0, 'rgba(83, 201, 61, 1)'], [1, 'rgba(83, 201, 61, 1)']],
+                showscale: false,
+                type: 'surface'
+            }
 
-            var data = [trace1, trace2, origin, lines, surf1, surf2];
+            var data = [trace1, trace2, trace3, origin, lines, surf1, surf2, surf3];
             window.csvData = [...data];
             var layout = {
                 width: 1280,
@@ -307,7 +346,7 @@
                     zaxis: {
                         tickvals: [1, 2],
                         ticktext: ['Passive', 'Active'],
-                        range: [0, 2.5],
+                        range: [0, 3.5],
                         zerolinewidth: 3,
                         gridcolor: 'rgb(100, 100, 100)',
                         showspikes: false,
