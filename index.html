@@ -341,7 +341,7 @@
                     },
                     zaxis: {
                         tickvals: [1, 2, 3],
-                        ticktext: ['Passive', 'Active'],
+                        ticktext: ['Passive', 'Active', 'other'],
                         range: [0, 3.5],
                         zerolinewidth: 3,
                         gridcolor: 'rgb(100, 100, 100)',
@@ -368,9 +368,9 @@
         function onChange() {
             let cb = document.querySelector('input[id="hide-panes"]');
             if (cb.checked) {
-                Plotly.deleteTraces('canvas', [-2, -1]);
+                Plotly.deleteTraces('canvas', [-3, -2, -1]);
             } else {
-                Plotly.addTraces('canvas', [window.csvData[4], window.csvData[5]]);
+                Plotly.addTraces('canvas', [window.csvData[5], window.csvData[6], window.csvData[7]]);
             }
         }
     </script>
