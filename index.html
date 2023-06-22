@@ -282,7 +282,7 @@
             var data = [trace1, trace2, trace3, origin, lines, surf1, surf2, surf3];
             window.csvData = [...data];
             var layout = {
-                width: 1280,
+                width: 1440,
                 height: 960,
                 font: {
                     family: "'CMU Sans Serif', 'Source Sans Pro', Calibri",
@@ -298,9 +298,11 @@
                     bordercolor: '#BFE4FF',
                 },
                 scene: {
+                    automargin: true,
                     aspectmode: 'manual',
                     aspectratio: { x: 1.2, y: 1, z: 0.7 },
                     xaxis: {
+                        automargin: true,
                         tickvals: [1, 2],
                         ticktext: ['Model-agnostic', 'Model-specific'],
                         range: [0, 2.5],
