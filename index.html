@@ -308,8 +308,7 @@
                     aspectratio: { x: 1.2, y: 1, z: 0.7 },
                     xaxis: {
                         tickvals: [1, 2],
-                        ticktext: ['Model-agnostic', 'Model-specific'].reverse(),
-                        margin: {t:200,r:0,b:0,l:0},
+                        ticktext: ['Model-agnostic', 'Model-specific'],
                         range: [0, 2.5],
                         zerolinewidth: 3,
                         gridcolor: 'rgb(100, 100, 100)',
@@ -327,6 +326,7 @@
                     yaxis: {
                         tickvals: [1, 2, 3, 4],
                         ticktext: ['Single', 'Marginal', 'Conditional', 'None'].reverse(),
+                        tickangle: 90,
                         range: [0, 4.5],
                         zerolinewidth: 3,
                         gridcolor: 'rgb(100, 100, 100)',
