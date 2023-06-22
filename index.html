@@ -45,7 +45,7 @@
         }
 
         function hover_txt(rows, k1, k2, p_or_a) {
-            return rows.filter(r => Number(r['Passive_vs_active']) == p_or_a).map(function (row) { return '[' + row[k1] + '] ' + row[k2]; });
+            return rows.filter(r => Number(r['SV type']) == p_or_a).map(function (row) { return '[' + row[k1] + '] ' + row[k2]; });
         }
 
         function pertube(data) {
@@ -65,7 +65,7 @@
             //// calc N
             let counts = {};
             rows.forEach(row => {
-                const key = row['Explanation'] + row['Global_vs_local'] + row['Passive_vs_active'];
+                const key = row['Model'] + row['Base value'] + row['SV type'];
                 if (counts[key] !== undefined) {
                     counts[key] += 1;
                 } else {
@@ -81,7 +81,7 @@
             let counts3 = {}; //// for scaling
             const phi = (Math.sqrt(5) - 1) / 2;
             rows.forEach(row => {
-                const key = row['Explanation'] + row['Global_vs_local'] + row['Passive_vs_active'];
+                const key = row['Model'] + row['Base value'] + row['SV type'];
                 const N = counts[key];
 
                 if (N > 1) {
