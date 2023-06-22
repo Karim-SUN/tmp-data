@@ -307,6 +307,7 @@
                     aspectmode: 'manual',
                     aspectratio: { x: 1.2, y: 1, z: 0.7 },
                     xaxis: {
+                        automargin: true,
                         tickvals: [1, 2],
                         ticktext: ['Model-agnostic', 'Model-specific'],
                         range: [0, 2.5],
@@ -325,6 +326,7 @@
                         },
                     },
                     yaxis: {
+                        automargin: true,
                         tickvals: [1, 2, 3, 4],
                         ticktext: ['Single', 'Marginal', 'Conditional', 'None'].reverse(),
                         range: [0, 4.5],
@@ -343,6 +345,7 @@
                         },
                     },
                     zaxis: {
+                        automargin: true,
                         tickvals: [1, 2, 3],
                         ticktext: ['Shapley value', 'Owen value', 'Casual Shapley value'],
                         range: [0, 3.5],
