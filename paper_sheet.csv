@@ -1,7 +1,7 @@
 Paper_id,SV type,Model,Base value,Paper_title
 Fatima et al.,1,1,2,A linear approximation method for the shapley value
 Castro et al.,1,1,2,Polynomial calculation of the shapley value based on sampling
-?trumbelj et al.,1,1,2,Explaining prediction models and individual predictions with feature contributions
+Štrumbelj et al.,1,1,2,Explaining prediction models and individual predictions with feature contributions
 Mitchell et al.,1,1,2,Sampling permutations for shapley value estimation
 Lundberg et al.,1,1,2,A unified approach to interpreting model predictions
 Covert et al.,1,1,2,Improving kernelshap: Practical shapley value estimation using linear regression
@@ -11,7 +11,7 @@ Okhrati et al.,1,1,1,A multilinear sampling algorithm to estimate shapley values
 Chen et al.,1,1,2,Explaining models by propagating shapley values of local components
 Chen et al.,1,1,2,Explaining a series of models by propagating shapley values
 Lundberg et al.,1,2,2,A unified approach to interpreting model predictions
-?trumbelj et al.,1,2,2,Explaining prediction models and individual predictions with feature contributions
+Štrumbelj et al.,1,2,2,Explaining prediction models and individual predictions with feature contributions
 Mase et al.,1,2,3,Explaining black box decisions by shapley cohort refinement
 Lundberg et al.,1,2,2,From local explanations to global understanding with explainable ai for trees
 Lundberg et al.,1,2,2,Consistent individualized feature attribution for tree ensembles
