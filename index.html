@@ -55,7 +55,7 @@
         const local = false;
         const host = local ? 'http://localhost:5500/' : 'https://raw.githubusercontent.com/Karim-SUN/tmp-data/master/';
 
-        Plotly.d3.csv(host + 'data_sheet.csv', function (err, rows) {
+        Plotly.d3.csv(host + 'paper_sheet.csv', function (err, rows) {
 
             if (err) {
                 document.getElementById('loading').innerHTML = 'Error connecting to GitHub';
